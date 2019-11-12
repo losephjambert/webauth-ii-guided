@@ -8,6 +8,18 @@ const usersRouter = require('../users/users-router.js');
 
 const server = express();
 
+const sessionConfig = {
+  name: 'ladygaga',
+  secret: 'make it a little long and keep it safe!',
+  cookie: {
+    maxAge: 1000 * 60 * 60, // you need it if the cookie is to survive !!
+    secure: false, // with secure, the cookie only gets set when https !!
+    httpOnly: false,
+  },
+  resave: false,
+  saveUninitialized: false,
+}
+
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
