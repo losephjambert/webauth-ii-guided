@@ -4,6 +4,20 @@ const bcrypt = require('bcryptjs');
 const Users = require('../users/users-model.js');
 
 // for endpoints beginning with /api/auth
+router.get('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.json('you can not leave, actually')
+      } else {
+        res.json('goodbye, sad to see you go')
+      }
+    })
+  } else {
+    res.end();
+  }
+})
+
 router.post('/register', (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
