@@ -25,6 +25,10 @@ router.post('/login', (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
+        // if creds good, stuff a thing inside req.session
+        // which will be there when other endpoints are hit
+        // by the same client
+        req.session.user = user;
         res.status(200).json({
           message: `Welcome ${user.username}!`,
         });
